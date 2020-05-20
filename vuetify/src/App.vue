@@ -49,6 +49,6 @@ export default {
 <style scoped>
 h2 {
   font-family: Arial, Helvetica, sans-serif;
-  font-weight: 100;
+  font-weight: lighter;
 }
 </style>
