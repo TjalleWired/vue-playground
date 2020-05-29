@@ -1,0 +1,59 @@
+function QuickSearch(content) {
+	globalTimeout = null; 
+	var mode		= content.attr('data-type');
+	var data		= content.val();
+	var f_list		= false;
+	var minlength	= 3;
+	var maxlength	= 128;
+
+	if (data.length > minlength && data.length < maxlength) {
+		ajax.exec({
+			action  : 'QuickSearch',
+			mode    : mode,
+			data	: data,
+			beforeSend: function(html) { 
+				$('#QuickSearchResult' + mode + ' td').html('');
+				$("#textInput").html(data);
+		   }
+		});
+		ajax.callback.QuickSearch = function(data){
+			if(data.tagOn == true){
+				return false;
+			}else{
+				$('#QuickSearchResult' + mode).show();
+				$('#QuickSearchResult' + mode + ' td').html(data.html);
+				f_list = true;
+			}	
+		};
+	}
+	return false;
+};
+
+$(document).ready(function(){
+	var globalTimeout = null; 
+	$("input.QuickSearch[data-type=Queries]").tagit({
+		autocomplete: {delay: 1000, minLength: 4, maxlength:128},
+		removeConfirmation: true,
+		placeholderText: 'Введите желаемое слово',
+		tagSource: function(search, showChoices) {
+			ajax.exec({
+				action  : 'QuickSearch',
+				mode    : 'Queries',
+				data	: search.term,
+			});
+			ajax.callback.QuickSearch = function(data){
+				showChoices(data.tag);
+			};
+		}
+	});
+    $("input.QuickSearch[data-type=Topic]").keyup(function() {
+		var thisVal = $(this); 
+        if(globalTimeout != null) clearTimeout(globalTimeout);
+		globalTimeout = setTimeout(function(){QuickSearch(thisVal)},1000);
+	});
+	$("input.QuickSearch[data-type=Tracker]").keyup(function() {
+		var thisVal = $(this); 
+        if(globalTimeout != null) clearTimeout(globalTimeout);
+		globalTimeout = setTimeout(function(){QuickSearch(thisVal)},1000);
+	});
+});

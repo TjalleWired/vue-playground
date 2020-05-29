@@ -1,0 +1,76 @@
+
+var $i = jQuery.noConflict();
+
+jQuery(document).ready(function($){
+
+	$i('a[href=#top], a[href=#ipboard_body]').click(function(){
+		$i('html, body').animate({scrollTop:0}, 400);
+        return false;
+	});
+	
+	$i(".forum_name").hover(function() {
+		$i(this).next(".forum_desc_pos").children(".forum_desc_con").stop()
+		.animate({left: "0", opacity:1}, "fast")
+		.css("display","block")
+	}, function() {
+		$i(this).next(".forum_desc_pos").children(".forum_desc_con").stop()
+		.animate({left: "10", opacity: 0}, "fast", function(){
+			$i(this).hide();
+		})
+	});
+	
+	$i('#topicViewBasic').click(function(){
+		$i(this).addClass("active");
+		$i('#topicViewRegular').removeClass("active");
+		$i("#customize_topic").addClass("basicTopicView");
+		$.cookie('ctv','basic',{ expires: 365, path: '/'});
+		return false;
+	});
+	
+	$i('#topicViewRegular').click(function(){
+		$i(this).addClass("active");
+		$i('#topicViewBasic').removeClass("active");
+		$i("#customize_topic").removeClass("basicTopicView");
+		$.cookie('ctv',null,{ expires: -1, path: '/'});
+		return false;
+	});
+	
+	if ( ($.cookie('ctv') != null))	{
+		$i("#customize_topic").addClass("basicTopicView");
+		$i("#topicViewBasic").addClass("active");
+	}
+	else{
+		$i("#topicViewRegular").addClass("active");
+	}
+	
+	$i('.category_block .forumHover').each(function(){
+		var forumURL = $(this).find(".col_c_forum h4 a").attr("href");
+		$i(this).click(function(){
+			window.location = forumURL;
+			$(this).addClass("showLoading");
+		})
+	});
+	
+	$i("#nav_background").click(function(){
+		$i("#toggle_background").slideToggle();
+	})
+	
+	var customBackground = 'body.cbe';
+	var blurElements = '.cbe .maintitle, .cbe .blurBox, .cbe .ipsBox, .cbe #secondary_navigation, .cbe .pagination a, .cbe .ipsSideBlock h3, .cbe .general_box h3, .cbe .statistics_head, .cbe .ipbfs_titlebox, .cbe #latest_news h3, .cbe .rowC';		
+	$("#custom_background span").click(function(){
+		var backgroundImage = $(this).attr("data-backgroundImage");
+		var backgroundColor = $(this).attr("data-backgroundColor");
+		var blurBackgroundColor = $(this).attr("data-blurBackgroundColor");
+		$("style#styleBackground").replaceWith('<style id="styleBackground" type="text/css">' + customBackground + '{ background-color: ' + backgroundColor + '; background-image: url(/styles/templates/default/images/snapshot/' + backgroundImage + '.jpg); }' + blurElements + '{ background-color: ' + blurBackgroundColor + '; background-image: url(/styles/templates/default/images/snapshot/highlight_strong.png); }</style>');
+		$.cookie('twentyBackgroundImage',backgroundImage,{ expires: 365, path: '/'});
+		$.cookie('twentyBackgroundHex',backgroundColor,{ expires: 365, path: '/'});
+		$.cookie('twentyBlurBackgroundHex',blurBackgroundColor,{ expires: 365, path: '/'});
+	});	
+	if ( ($.cookie('twentyBackgroundImage') != null))	{
+		$("style#styleBackground").replaceWith('<style id="styleBackground" type="text/css">' + customBackground + '{ background-color: ' + $.cookie('twentyBackgroundHex') + '; background-image: url(/styles/templates/default/images/snapshot/' + $.cookie('twentyBackgroundImage') + '.jpg); }' + blurElements + '{ background-color: ' + $.cookie('twentyBlurBackgroundHex') + '; background-image: url(/styles/templates/default/images/snapshot/highlight_strong.png); }</style>');
+	}
+	else{
+		$("style#styleBackground").replaceWith('<style id="styleBackground" type="text/css">' + customBackground + '{ background-color: #000; background-image: url(/styles/templates/default/images/snapshot/background1.jpg); }' + blurElements + '{ background-color: #a9a4a2; background-image: url(/styles/templates/default/images/snapshot/highlight_strong.png); }</style>');
+	}
+	
+});

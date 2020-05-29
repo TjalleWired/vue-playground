@@ -1,0 +1,15 @@
+var torrents = {
+	upTorrentToCurrent : function(post_id) {
+		if(post_id == undefined || post_id == null) return false;
+		$.post("/ajax.php",{action : 'up_torrent', post_id : post_id},function(data){
+			if(data.success == '1') {
+				$("[data-seedbox-up=\""+data.post_id+"\"]").hide();
+				if(data.seed_result_errors != '') {
+					alert("Seedboxes error : " + data.seed_result_errors);
+				}
+			} else {
+				alert("Up torrent error !");
+			}
+		},"json");
+	}
+};

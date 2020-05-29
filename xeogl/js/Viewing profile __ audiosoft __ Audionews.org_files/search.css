@@ -1,0 +1,85 @@
+#searchText {
+	position: absolute;
+    width: 100%;
+	z-index: 10000;
+}
+.searchTab {
+    width: auto;
+	float: right;
+    margin-top: -38px;
+    position: relative;
+    right: -6px;
+	border-color: #CCCCCC;
+    border-style: solid;
+    border-width: 1px 1px 0;
+    padding: 3px 3px 0;
+    background-color: #fff;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    text-align: center;
+    vertical-align: bottom;
+}
+
+#QuickSearchResultTracker td { background: none; }
+#QuickSearchResultTracker a { font: 11px Verdana,Arial,sans-serif; }
+#SonicCouture  td { padding: 4px; }
+table.searchQuick {
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+     background-color: #FFFFFF;
+     border-bottom-left-radius: 7px;
+     border-bottom-right-radius: 7px;
+     border-color: #CCCCCC;
+     border-style: solid;
+     border-width: 0px 1px 1px;
+     float: right;
+     font-size: 10px !important;
+     line-height: 14p !importantx;
+     position: absolute;
+     vertical-align: bottom;
+     width: auto;
+     z-index: 10000;
+	 font: none !important;
+}
+
+.searchQuick a {
+     clear: left;
+     display: block;
+     padding: 1px;
+     text-decoration: none;
+}
+
+.searchQuick a:hover {
+     background-color: #D7EDFC;
+     color: #FFFFFF;
+}
+
+.searchQuick a span {
+     color: #555555;
+}
+
+.searchQuick a:hover span {
+     color: #000000;
+}
+
+.searchQuick span.seperator {
+     float: left;
+     margin-right: 5px;
+     padding-right: 15px;
+}
+
+.searchQuick span.seperator a {
+     background-color: transparent;
+     color: #FFFFFF;
+     display: block;
+     height: auto;
+}
+
+.searchQuick span.notfound {
+     background-color: #FFFFFF;
+     color: #000000;
+     display: block;
+     height: auto;
+     padding: 5px;
+     width: 100%;
+}
